@@ -6,6 +6,8 @@
 #define VIAL_UNLOCK_COMBO_ROWS { 0, 0 }
 #define VIAL_UNLOCK_COMBO_COLS { 0, 1 }
 
+#define USB_SUSPEND_WAKEUP_DELAY 5000
+
 #ifdef RGB_MATRIX_ENABLE
 #define RGBLIGHT_LAYERS // レイヤーとの連動機能の有効化
 #define WS2812_PIO_USE_PIO1 // RP2040用に追加

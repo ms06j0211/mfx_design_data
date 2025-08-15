@@ -2,6 +2,13 @@
 
 mfx060bの組み立て方法、及びカスタマイズ方法について記載します。
 
+**組み立て例**
+
+<img src="./image/build_sample.jpg" width="300">
+
+**キーレイアウト**
+
+<img src="./hardware/mfx060b-layout.png" width="300">
 
 **目次**
 
@@ -9,26 +16,31 @@ mfx060bの組み立て方法、及びカスタマイズ方法について記載�
 - [PCB組み立て](#pcb組み立て)
 - [キーボード組み立て](#キーボード組み立て)
 - [キーのカスタマイズ](#キーのカスタマイズ)
+  - [Firmwareのビルド](#firmwareのビルド)
 - [補足](#補足)
-  - [静音化のポイント](#静音化のポイント)
+  - [半田付けのコツ](#半田付けのコツ)
+  - [静音化の探求](#静音化の探求)
   - [設計情報](#設計情報)
 
 ## 組み立てに必要なもの
 
 1. Picossci RP2040 ピッチ変換基板
-2. Choc V2スタビライザー(スクリュータイプ) x3 (2Ux2, 6.5Ux1)
-3. Kailh Choc ロープロファイル用Switch Socket x60
-4. Kailh Choc V2 キースイッチ x60
+2. Choc V2スタビライザー(スクリュータイプ) x3 (2Ux2, 6.25Ux1)
+3. Kailh Chocロープロファイル用Switch Socket x60
+4. Kailh Choc V2キースイッチ x60
 5. キーキャップ x60
-6. Poker互換ケース
+6. Poker/GH60互換ケース
 
 ## PCB組み立て
 
-1. Picossci RP2040 ピッチ変換基板を半田付け
-2. Kailh Choc ロープロファイル用Switch Socketを半田付け
-3. RP2040のBOOTボタンを押しながらPCとPCBを接続する
-4. [mfx060b_vial.uf2](./firmware/)をRPI-RP2フォルダにコピーする
-5. キーの動作確認をする（デフォルトではUS配列）
+1. Picossci RP2040ピッチ変換基板を半田付け  
+<img src="./image/build_000.jpg" width="300">
+2. RP2040のBOOTボタンを押しながらPCとPCBを接続する
+3. [mfx060b_vial.uf2](./firmware/)をRPI-RP2フォルダにドラッグ＆ドロップする
+4. 以下の画像のようにLEDが点灯すれば一旦OK  
+<img src="./image/build_001.jpg" width="300">
+1. Kailh Chocロープロファイル用Switch Socketを半田付け
+2. キーの動作確認をする（デフォルトではUS配列）
 
 なお、デフォルトではFn+QでBoot loaderを起動することができますので、  
 組み立て後に独自のFirmwareに更新する場合に使用してください。
@@ -48,12 +60,28 @@ Vial対応しているためGUIでキーマップを変更することができ�
 1. https://get.vial.today/ にアクセス
 2. Start Vial Web -> Start Vial -> mfx060b を選択して "接続" をクリック
 
+### Firmwareのビルド
+
+1. vial-qmkをクローンする
+2. sourceフォルダ名をmfx060bにリネームする
+3. vial-qmkのkeyboardsフォルダにmfx060bフォルダをコピーする
+4. make mfx060b:vialを実行する
+
 ## 補足
 
-### 静音化のポイント
+### 半田付けのコツ
+
+- Picossci RP2040ピッチ変換基板はフラックスの使用を推奨
+- Switch Socketは向きがあるので注意すること（シルク印字に合わせて実装）  
+<img src="./image/build_002.jpg" width="300">
+
+### 静音化の探求
 
 - テープmod
-- スタビライザーのルブ、テープmod
+  - PCB部品実装面にマスキングテープを貼ると基板とケースの反響を抑えられる
+- スタビライザーのバンドエイドmod、ルブ
+  - 6.25Uのスタビライザーは特に音がしやすいため、ステムの底にバンドエイドを貼ると消音効果がある
+  - ルブ(潤滑剤)はミニ四駆用のグリスなどでもOK
 
 ### 設計情報
 
